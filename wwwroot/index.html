@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TestSearchAutoComplete</title>
+        <script src="./js/FLib.js"></script>
+        <script src="./js/Api.js"></script>
+        <style>
+            @import url("./fonts/zed-mono-extended.ttf");
+
+            * {
+                font-family: "Zed Mono", monospace;
+            }
+            body {
+                margin: 0;
+            }
+            input,
+            button {
+                font-size: 24px;
+                color: black;
+                padding: 12px 20px;
+                border: 0;
+                border-bottom: 2px solid transparent;
+                outline: none;
+                transition: 0.16s;
+            }
+            input {
+                width: -webkit-fill-available;
+                background-color: transparent;
+                border: 2px solid hsla(0, 0%, 0%, 0.16);
+            }
+            input:hover {
+                border-bottom: 2px solid blue;
+            }
+            button {
+                background-color: transparent;
+                border: 2px solid hsla(0, 0%, 0%, 0.16);
+                cursor: pointer;
+            }
+            button:active {
+                background-color: hsla(0, 0%, 0%, 0.08);
+            }
+            #header {
+                display: flex;
+                flex-direction: column;
+                width: -webkit-fill-available;
+                padding: 8px;
+                border: 2px solid hsla(0, 0%, 0%, 0.08);
+                box-shadow: 0 2px 4px 0 hsla(0, 0%, 0%, 0.04);
+            }
+            .suggestions {
+                margin: 8px;
+            }
+            .suggestion {
+                width: -webkit-fill-available;
+                padding: 8px 16px;
+                cursor: default;
+            }
+            .suggestion:hover {
+                background-color: hsla(0, 0%, 0%, 0.04);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header">
+            <input id="textInput" type="text" placeholder="Поиск" />
+            <div id="suggestions"></div>
+        </div>
+    </body>
+    <script>
+        let api = new Api();
+        let suggestionsList = $f("#suggestions"),
+            textInput = $f("#textInput");
+
+        let searchTimeout;
+
+        function onSuggestionClick(suggestion) {
+            textInput.unwrap().value = suggestion.innerHTML;
+            suggestionsList.unwrap().innerHTML = null;
+        }
+
+        textInput.unwrap().oninput = () => {
+            clearTimeout(searchTimeout);
+
+            let input = textInput.unwrap().value;
+
+            suggestionsList.unwrap().innerHTML = null;
+
+            if (input == "") {
+                return;
+            }
+
+            searchTimeout = setTimeout(() => {
+                api.search(input).then((notes) =>
+                    notes.forEach(
+                        (note) => (
+                            console.log(note),
+                            (suggestionsList.unwrap().innerHTML += `<div onclick="onSuggestionClick(this)" class="suggestion">${note.name}</div>`)
+                        ),
+                    ),
+                );
+            }, 500);
+        };
+    </script>
+</html>
