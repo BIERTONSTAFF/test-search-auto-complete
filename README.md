@@ -1,6 +1,6 @@
 # TestSearchAutoComplete
 Проект демонстрирует реализацию автодополнения поиска с использованием полнотекстового поиска PostgreSQL.
-<img width="1068" alt="Screenshot 2024-11-16 at 02 08 58" src="https://github.com/user-attachments/assets/4b0ef6d6-73b4-487a-b118-970bbf87447f">
+<img width="1068" alt="Screenshot 2024-11-16 at 02 08 58" src="https://github.com/user-attachments/assets/b5e63d97-7c63-48ec-bd20-e9df64a1258f">
 ## Технологии
 - ASP.NET Core
 - PosgreSQL
@@ -21,4 +21,4 @@
 - Различные веса для названия (A) и содержимого (B) заметки
 - Автоматическое обновление поискового вектора через триггеры
 - Дебаунсинг поисковых запросов на фронтенде
-<img width="1068" alt="Screenshot 2024-11-16 at 02 09 08" src="https://github.com/user-attachments/assets/4ff0141d-8d4c-4d14-9e89-900d01e2485b">
+<img width="1068" alt="Screenshot 2024-11-16 at 02 09 08" src="https://github.com/user-attachments/assets/ce1b6315-6d65-4379-b43a-1a5286aaa9a5">
